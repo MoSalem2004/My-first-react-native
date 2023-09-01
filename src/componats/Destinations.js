@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
+import { View, Text, TouchableOpacity, Image } from "react-native";
 import React, { useState } from "react";
 import { DestinationsData } from "../constants/index";
 import {
@@ -8,10 +8,11 @@ import {
 import { LinearGradient } from "react-native-svg";
 import { HeartIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
+import tw from "twrnc";
 export default function Destinations() {
   const navigation = useNavigation();
   return (
-    <View style={styles.Container}>
+    <View style={tw`flex justify-center flex-row flex-wrap m-5 gap-5`}>
       {DestinationsData.map((item, index) => {
         return (
           <DestinationsCard navigation={navigation} item={item} key={index} />
@@ -22,13 +23,14 @@ export default function Destinations() {
 }
 
 const DestinationsCard = ({ item, navigation }) => {
+  // Toggle heart icon
   const [TheHeartIcon, setHeartIcon] = useState(false);
   return (
     <TouchableOpacity
-      style={styles.TheContaint}
+      style={tw`w-[48%] h-100 flex justify-end relative p-10 `}
       onPress={() => navigation.navigate("DestinationsScreen", { ...item })}
     >
-      <Image source={item.image} style={styles.Images} />
+      <Image source={item.image} style={tw`w-66 h-100 absolute rounded-3xl`} />
       <LinearGradient
         colors={["transparent", "rgba(0,0,0,0.8)"]}
         style={{
@@ -41,56 +43,15 @@ const DestinationsCard = ({ item, navigation }) => {
         end={{ x: 0.5, y: 1 }}
       />
       <TouchableOpacity
-        style={styles.HeartIcon}
+        style={tw`absolute top-5 left-7 rounded-full bg-[rgba(255,255,255,0.4)] p-2.5`}
         onPress={() => setHeartIcon(!TheHeartIcon)}
       >
         <HeartIcon size={wp(4)} color={TheHeartIcon ? "red" : "white"} />
       </TouchableOpacity>
-      <Text style={styles.Name}>{item.name}</Text>
-      <Text style={styles.shortDescription}>{item.shortDescription}</Text>
+      <Text style={tw`text-white font-bold text-3xl`}>{item.name}</Text>
+      <Text style={tw`mb--2.5 text-xl text-white`}>
+        {item.shortDescription}
+      </Text>
     </TouchableOpacity>
   );
 };
-
-const styles = StyleSheet.create({
-  Container: {
-    display: "flex",
-    justifyContent: "space-between",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    margin: 20,
-    gap: 20,
-  },
-  TheContaint: {
-    width: wp(44),
-    height: wp(65),
-    display: "flex",
-    justifyContent: "flex-end",
-    position: "relative",
-    padding: 10,
-  },
-  Images: {
-    position: "absolute",
-    width: wp(44),
-    height: wp(65),
-    borderRadius: 35,
-  },
-  Name: {
-    color: "#fff",
-    fontWeight: "bold",
-    fontSize: wp(4.5),
-  },
-  shortDescription: {
-    color: "#fff",
-    fontSize: wp(3.2),
-    marginBottom: 10,
-  },
-  HeartIcon: {
-    position: "absolute",
-    top: 20,
-    right: 20,
-    borderRadius: 50,
-    backgroundColor: "rgba(255,255,255,0.4)",
-    padding: 10,
-  },
-});

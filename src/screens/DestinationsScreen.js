@@ -1,11 +1,4 @@
-import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
+import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 import React, { useState } from "react";
 import {
   widthPercentageToDP as wp,
@@ -15,142 +8,82 @@ import { StatusBar } from "expo-status-bar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { HeartIcon } from "react-native-heroicons/solid";
 import { ClockIcon, MapPinIcon } from "react-native-heroicons/solid";
-import { theme } from "../Theme";
 import { SunIcon } from "react-native-heroicons/outline";
+import tw from "twrnc";
 export default function DestinationsScreen(props) {
   const item = props.route.params;
+  // Toggle heart icon
   const [TheHeartIcon, setHeartIcon] = useState(false);
   return (
-    <View style={styles.container}>
-      <Image style={styles.Image} source={item.image} />
+    <View style={tw`flex-1 bg-white`}>
+      <Image style={tw`w-full h-4/6 absolute`} source={item.image} />
       <StatusBar style="light" />
-      <SafeAreaView style={styles.View}>
+      <SafeAreaView>
         <TouchableOpacity
-          style={styles.ContainerIcon}
+          style={tw`absolute p-2.5 bg-[rgba(255,255,255,0.4)] rounded-full top-5 left-5`}
           onPress={() => setHeartIcon(!TheHeartIcon)}
         >
           <HeartIcon
-            style={styles.HeartIcon}
-            size={wp(7)}
+            size={wp(6)}
             strokeWidth={4}
             color={TheHeartIcon ? "red" : "white"}
           />
         </TouchableOpacity>
       </SafeAreaView>
-      <View style={styles.TheContaint}>
+      <View
+        style={tw`flex justify-between bg-white w-full rounded-3xl flex-1 mt-110`}
+      >
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={styles.Containt}>
-            <Text style={styles.name}>{item?.name}</Text>
-            <Text style={styles.estimatedPrice}>{item?.estimatedPrice}</Text>
-            <Text style={styles.longDescription}>{item?.longDescription}</Text>
-            <View style={styles.box}>
+          <View
+            style={tw`flex flex-row m-5 flex-wrap items-center justify-between`}
+          >
+            <Text style={tw`font-bold text-[#636161] text-3xl`}>
+              {item?.name}
+            </Text>
+            <Text style={tw`text-[#0088ff] text-5xl`}>
+              {item?.estimatedPrice}
+            </Text>
+            <Text style={tw`text-xl text-[#636161] my-5`}>
+              {item?.longDescription}
+            </Text>
+            <View style={tw`flex flex-row items-start gap-2.5 mt-5 `}>
               <ClockIcon size={wp(7)} color={"skyblue"} />
               <View>
-                <Text style={styles.Info}>{item.timeFromCairo}</Text>
-                <Text style={styles.Text}> المدة الزمنية </Text>
+                <Text style={tw`text-[#636161] font-bold text-2xl`}>
+                  {item.timeFromCairo}
+                </Text>
+                <Text style={tw`text-xl`}> المدة الزمنية </Text>
               </View>
             </View>
-            <View style={styles.box}>
+            <View style={tw`flex flex-row items-start gap-2.5 mt-5 `}>
               <MapPinIcon size={wp(7)} color={"#636161a1"} />
               <View>
-                <Text style={styles.Info}>{item.distance}</Text>
-                <Text style={styles.Text}> مسافة الرحلة </Text>
+                <Text style={tw`text-[#636161] font-bold text-2xl`}>
+                  {item.distance}
+                </Text>
+                <Text style={tw`text-xl`}> مسافة الرحلة </Text>
               </View>
             </View>
-            <View style={styles.box}>
+            <View style={tw`flex flex-row items-start gap-2.5 mt-5 `}>
               <SunIcon size={wp(7)} color={"orange"} />
               <View>
-                <Text style={styles.Info}>{item.temperature}</Text>
-                <Text style={styles.Text}> درجة الحرارة </Text>
+                <Text style={tw`text-[#636161] font-bold text-2xl`}>
+                  {item.temperature}
+                </Text>
+                <Text style={tw`text-xl`}> درجة الحرارة </Text>
               </View>
             </View>
           </View>
         </ScrollView>
       </View>
-      <TouchableOpacity style={styles.TheButton}>
-        <Text style={styles.Button}> أحجز الآن </Text>
+      <TouchableOpacity style={tw`flex items-center my-10`}>
+        <Text
+          style={tw`bg-[#0088ff] text-4xl p-5 px-10 text-white rounded-full`}
+        >
+          {" "}
+          أحجز الآن{" "}
+        </Text>
       </TouchableOpacity>
     </View>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-
-  Image: {
-    width: wp(100),
-    height: hp(55),
-    position: "absolute",
-  },
-  ContainerIcon: {
-    position: "absolute",
-    backgroundColor: "rgba(255,255,255,0.4)",
-    padding: 10,
-    borderRadius: 50,
-    top: 30,
-    left: 30,
-  },
-  TheContaint: {
-    display: "flex",
-    justifyContent: "space-between",
-    backgroundColor: "#fff",
-    width: "100%",
-    // margin: 20,
-    borderRadius: 40,
-    marginTop: "78%",
-    height: 200,
-    flex: 1,
-  },
-  Containt: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-    margin: 20,
-    flexWrap: "wrap",
-  },
-  name: {
-    fontWeight: "bold",
-    fontSize: wp(7),
-    color: "#636161",
-  },
-  estimatedPrice: {
-    fontSize: wp(7),
-    color: "#0088ff",
-  },
-  longDescription: {
-    fontSize: wp(3.5),
-    color: "#636161",
-    marginTop: 15,
-  },
-  box: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "flex-start",
-    gap: 10,
-    marginTop: 20,
-  },
-  Info: {
-    fontWeight: "bold",
-    fontSize: wp(4.5),
-    color: "#636161",
-  },
-  Text: {
-    fontSize: 16,
-  },
-  TheButton: {
-    display: "flex",
-    alignItems: "center",
-    marginVertical: 18,
-  },
-  Button: {
-    backgroundColor: "#0088ff",
-    fontSize: wp(6),
-    padding: 10,
-    paddingHorizontal: 30,
-    color: "#fff",
-    borderRadius: 50,
-  },
-});

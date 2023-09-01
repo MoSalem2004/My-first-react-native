@@ -1,25 +1,15 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
+import { Text, View, Image, TouchableOpacity, ScrollView } from "react-native";
 import { CategoryData } from "../constants";
 import { theme } from "../Theme";
+import tw from "twrnc";
 export default function Categories() {
   return (
-    <View style={styles.container}>
-      <View style={styles.TheContainer}>
-        <Text style={styles.Title}> فئات </Text>
+    <View style={tw`flex-1 m-5`}>
+      <View style={tw`flex flex-row justify-between items-center m-2.5`}>
+        <Text style={tw`text-[#837f7f] text-2xl`}> فئات </Text>
         <TouchableOpacity>
-          <Text style={styles.TitleButton}> اظهار الكل </Text>
+          <Text style={tw`text-[${theme.text}] text-2xl`}> اظهار الكل </Text>
         </TouchableOpacity>
       </View>
       <ScrollView
@@ -29,9 +19,17 @@ export default function Categories() {
       >
         {CategoryData.map((cat, index) => {
           return (
-            <TouchableOpacity key={index} style={styles.TheContainerImage}>
-              <Image source={cat.image} style={styles.ContainerImage} />
-              <Text style={styles.imageTitle}>{cat.title}</Text>
+            <TouchableOpacity
+              key={index}
+              style={tw`flex items-center mt-6 gap-2.5`}
+            >
+              <Image
+                source={cat.image}
+                style={tw`w-30 h-29 rounded-5 ml-2.5`}
+              />
+              <Text style={tw`text-[#837f7f] font-bold text-lg`}>
+                {cat.title}
+              </Text>
             </TouchableOpacity>
           );
         })}
@@ -39,45 +37,3 @@ export default function Categories() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // backgroundColor: "#fff",
-    direction: "rtl",
-    // marginTop: 25,
-    margin: 20,
-  },
-  TheContainer: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    margin: 10,
-  },
-  Title: {
-    fontSize: wp(3),
-    color: "#837f7f",
-  },
-  TitleButton: {
-    fontSize: wp(3),
-    color: theme.text,
-  },
-  TheContainerImage: {
-    display: "flex",
-    alignItems: "center",
-    gap: 10,
-    marginTop: 30,
-  },
-  ContainerImage: {
-    width: wp(20),
-    height: wp(19),
-    borderRadius: 20,
-    marginLeft: 10,
-  },
-  imageTitle: {
-    fontSize: wp(2),
-    color: "#837f7f",
-    fontWeight: "bold",
-  },
-});

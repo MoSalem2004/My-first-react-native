@@ -1,29 +1,31 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { SortCategoryData } from "../constants/index"; // استيراد المصفوفة
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
+import { View, Text, TouchableOpacity } from "react-native";
+import { SortCategoryData } from "../constants/index";
+import tw from "twrnc";
 const Header = () => {
+  // Select the button in the header
   const [activeLink, setActiveLink] = useState(" شائع ");
 
   const handleLinkPress = (link) => {
     setActiveLink(link);
   };
-
   return (
-    <View style={styles.headCategory}>
+    <View
+      style={tw`flex justify-around items-center flex-row bg-[#eee] p-2.5 m-5 mb-2.5 rounded-md`}
+    >
       {SortCategoryData.map((link) => (
         <TouchableOpacity
           key={link}
-          style={[styles.link, activeLink === link ? styles.activelink : null]}
+          style={[
+            tw`px-10 py-2.5 rounded-full`,
+            activeLink === link ? tw`bg-white` : null,
+          ]}
           onPress={() => handleLinkPress(link)}
         >
           <Text
             style={[
-              styles.linkText,
-              activeLink === link ? styles.activelinkText : null,
+              tw`text-2xl font-bold`,
+              activeLink === link ? tw`text-[#0088ff]` : null,
             ]}
           >
             {link}
@@ -33,67 +35,4 @@ const Header = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  headCategory: {
-    display: "flex",
-    justifyContent: "space-around",
-    alignItems: "center",
-    flexDirection: "row",
-    backgroundColor: "#eee",
-    padding: 10,
-    marginBottom: 10,
-    margin: 20,
-    borderRadius: 5,
-  },
-  link: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-  },
-  activelink: {
-    backgroundColor: "#fafafa",
-    borderRadius: 55,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  linkText: {
-    fontSize: wp(3),
-    fontWeight: "bold",
-  },
-  activelinkText: {
-    color: "#0088ff",
-  },
-});
-
 export default Header;
-// const styles = StyleSheet.create({
-//   headCategory: {
-//     display: "flex",
-//     justifyContent: "space-around",
-//     alignItems: "center",
-//     flexDirection: "row",
-//     backgroundColor: "#eee",
-//     padding: 10,
-//     marginBottom: 10,
-//     margin: 20,
-//     borderRadius: 5,
-//   },
-//   ActiveButtonClass: {
-//     padding: 10,
-//     borderRadius: 10,
-//     backgroundColor: "#fafafa",
-//   },
-//   Title: {
-//     color: "#333",
-//   },
-//   active: {
-//     backgroundColor: "#333",
-//   },
-// });
