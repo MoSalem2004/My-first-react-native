@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "WeatherProject",
-    "slug": "WeatherProject",
+    "name": "Airplan",
+    "slug": "Airplan",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
+      "image": "./assets/svg.jpg",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
@@ -19,7 +19,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/svg.jpg",
         "backgroundColor": "#ffffff"
       }
     },
